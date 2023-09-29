@@ -1,0 +1,65 @@
+#include<iostream>
+using namespace std;
+class DynamicArrays{
+	public:
+	int row;
+	int col;
+	int **arr;
+	DynamicArrays(int row, int col)
+	{
+		this->row=row;
+		this->col=col;
+		arr=new int*[row];
+		for(int i=0;i<row;i++)
+		{
+			arr[i]=new int [col];
+		}
+		
+	}
+	void inputdata()
+	{
+		for(int i=0;i<row;i++)
+		{
+			for(int j=0;j<col;j++)
+			{
+				cin>>arr[i][j];
+			}
+		}
+	}
+
+
+		
+		
+	void displaydata()
+	{
+		for(int i=0;i<row;i++)
+		{
+			for(int j=0;j<col;j++)
+			{
+				cout<<arr[i][j]<<" ";
+				
+			}cout<<endl;
+		}
+	}
+	 ~DynamicArrays()
+	 {
+	 	delete[]arr;
+	 }
+
+
+	
+};
+
+int main()
+{
+	int row;
+	int col;
+	cout<<"Enter row:"<<endl;
+	cin>>row;
+	cout<<"Enter Col:"<<endl;
+	cin>>col;
+	DynamicArrays obj1(row,col);
+	obj1.inputdata();
+	cout<<"-------------------------MATRIX-------------------------"<<endl;
+	obj1.displaydata();
+}
