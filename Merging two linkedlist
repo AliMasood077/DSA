@@ -1,0 +1,127 @@
+#include<iostream>
+using namespace std;
+
+class node {
+public:
+    int data;
+    node *next;
+    node *prev;
+
+    node(int a) {
+        data = a;
+        next = nullptr;
+        prev = nullptr;
+    }
+};
+
+class linklist {
+public:
+    node *head, *tail;
+
+    linklist() {
+        head = nullptr;
+        tail = nullptr;
+    }
+
+    void addattail(int data) {
+        node *n = new node(data);
+        if (head == nullptr) {
+            head = tail = n;
+        } else {
+            tail->next = n;
+            n->prev = tail;
+            tail = n;
+        }
+    }
+
+    void insertatmiddle(int pos, int val) {
+        node *n = new node(val);
+        node *temp = head;
+        int count = 1;
+        while (count <= pos - 1) {
+            temp = temp->next;
+            count++;
+        }
+        n->next = temp->next;
+        n->prev = temp;
+        temp->next = n;
+        temp->next->prev = n;
+    }
+
+    node *merge(node *&head1, node *&head2) {
+        node *p1 = head1;
+        node *p2 = head2;
+        node *dummynode = new node(-1);
+        node *p3 = dummynode;
+
+        while (p1 != nullptr && p2 != nullptr) {
+            if (p1->data < p2->data) {
+                p3->next = p1;
+                p1 = p1->next;
+            } else {
+                p3->next = p2;
+                p2 = p2->next;
+            }
+
+            p3 = p3->next;
+        }
+
+        while (p1 != nullptr) {
+            p3->next = p1;
+            p1 = p1->next;
+            p3 = p3->next;
+        }
+
+        while (p2 != nullptr) {
+            p3->next = p2;
+            p2 = p2->next;
+            p3 = p3->next;
+        }
+
+        head = dummynode->next;
+        delete dummynode;
+
+        return head;
+    }
+
+    void display() {
+        node *temp = head;
+        while (temp != nullptr) {
+            cout << temp->data << "->";
+            temp = temp->next;
+        }
+        cout << "NULL" << endl;
+    }
+};
+
+int main() {
+    cout << "Linkedlist 1:" << endl;
+    linklist a;
+    a.addattail(12);
+    a.display();
+    a.addattail(13);
+    a.display();
+    a.addattail(14);
+    a.display();
+    a.addattail(15);
+    a.display();
+
+    cout << endl;
+    cout << "Linkedlist 2:" << endl;
+    linklist b;
+    b.addattail(16);
+    b.display();
+    b.addattail(17);
+    b.display();
+    b.addattail(18);
+    b.display();
+    b.addattail(19);
+    b.display();
+
+    linklist mergedList;
+    mergedList.merge(a.head, b.head);
+    cout << "Merged Linked List:" << endl;
+    mergedList.display();
+
+    return 0;
+}
