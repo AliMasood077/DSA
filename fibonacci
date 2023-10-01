@@ -1,0 +1,30 @@
+#include<iostream>
+using namespace std;
+
+int Fib(int n)
+{
+	if(n==0)
+	{
+		return 0;
+	}
+	if(n==1)
+	{
+		return 1;
+	}
+	
+	int prob=Fib(n-1)+Fib(n-2);
+	return prob;
+}
+int main()
+{
+int n;
+    cout << "Enter value of n: " << endl;
+    cin >> n;
+
+    cout << "The sequence is: ";
+    for (int i = 0; i < n; i++) {
+        cout << Fib(i) << " ";
+    }
+
+    return 0;
+}
